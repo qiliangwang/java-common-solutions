@@ -1,21 +1,22 @@
-package commonsolutions.notification.service;
+package commonsolutions.notification.entity;
 
 import java.util.Objects;
 import java.util.UUID;
 
-public class TrainingId implements Identity {
+public class MeetingId implements Identity {
+
     private String value;
 
-    public TrainingId(String value) {
+    public MeetingId(String value) {
         this.value = value;
     }
 
-    public static TrainingId from(String value) {
-        return new TrainingId(value);
+    public static MeetingId from(String value) {
+        return new MeetingId(value);
     }
 
-    public static TrainingId next() {
-        return new TrainingId(UUID.randomUUID().toString());
+    public static MeetingId next() {
+        return new MeetingId(UUID.randomUUID().toString());
     }
 
     @Override
@@ -27,7 +28,7 @@ public class TrainingId implements Identity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TrainingId that = (TrainingId) o;
+        MeetingId that = (MeetingId) o;
         return value.equals(that.value);
     }
 

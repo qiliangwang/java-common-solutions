@@ -1,23 +1,25 @@
-package commonsolutions.notification.composer;
+package commonsolutions.notification.composer.renderer;
 
+import commonsolutions.notification.composer.TemplateVariable;
+import commonsolutions.notification.composer.VariableContext;
 import commonsolutions.notification.domain.Notification;
 import org.stringtemplate.v4.ST;
 
 import java.util.List;
 
-public abstract class NotificationComposer {
+public abstract class NotificationRenderer {
     private static final char BEGIN_VARIABLE = '$';
     private static final char END_VARIABLE = '$';
     protected String template;
 
-    public NotificationComposer(String template, VariableContext context) {
+    public NotificationRenderer(String template, VariableContext context) {
         this.template = template;
         setup(context);
     }
 
     protected void setup(VariableContext context) {}
 
-    public Notification compose() {
+    public Notification render() {
         String from = renderFrom();
         String to = renderTo();
         String subject = renderSubject();

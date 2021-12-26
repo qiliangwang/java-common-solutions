@@ -1,6 +1,7 @@
 package commonsolutions.notification.composer;
 
 
+import commonsolutions.notification.composer.renderer.NotificationRenderer;
 import commonsolutions.notification.domain.Notification;
 
 public class MailTemplate {
@@ -12,8 +13,8 @@ public class MailTemplate {
         this.templateType = templateType;
     }
 
-    public Notification compose(VariableContext context) {
-        NotificationComposer notificationComposer = this.templateType.composer(template, context);
-        return notificationComposer.compose();
+    public Notification render(VariableContext context) {
+        NotificationRenderer notificationRenderer = this.templateType.renderer(template, context);
+        return notificationRenderer.render();
     }
 }

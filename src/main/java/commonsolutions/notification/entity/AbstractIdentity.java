@@ -1,4 +1,4 @@
-package commonsolutions.notification.service;
+package commonsolutions.notification.entity;
 
 import java.util.Objects;
 

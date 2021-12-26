@@ -2,139 +2,116 @@ package commonsolutions.notification;
 
 import commonsolutions.notification.composer.MailTemplate;
 import commonsolutions.notification.composer.TemplateType;
-import commonsolutions.notification.composer.VariableNames;
 import commonsolutions.notification.composer.VariableContext;
 import commonsolutions.notification.domain.Notification;
-import commonsolutions.notification.service.*;
+import commonsolutions.notification.repository.MailTemplateRepository;
+import commonsolutions.notification.repository.impl.SimpleMailTemplateRepository;
+import commonsolutions.notification.entity.*;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 
+@Slf4j
 public class NotificationSolutionsApplication {
+    private Nominator nominator;
+    private Nominee nominee;
+    private Meeting meeting;
+    private Research research;
+
+    private MailTemplateRepository mailTemplateRepository;
 
     public static void main(String[] args) {
         new NotificationSolutionsApplication().run();
     }
 
-    /**
-     *这里简单罗列一下几个场景吧（实际的业务会更加的复杂）
-     *
-     * 提名成功
-     *
-     * ```
-     * 看看二（名花二十一），您好：
-     * 恭喜您被提名参与本次晋升！
-     * ```
-     *
-     * 参加晋升会议
-     *
-     * ```
-     * 哈哈五（名花十九），您好： (评委 )
-     * 何久度（啊一） 邀请您参加 看八（名花二十一）（被提名人） 的晋升会议，以下是合议的时间与地点，希望您能准时出席。
-     * 时间：2021/12/23 11:51 - 16:51
-     * 地点：上海市 普陀区 近铁城市广场北座 17楼
-     * ```
-     *
-     * 调研邮件
-     *
-     * ```
-     * 看八（名花二十一），您好：（被提名人信息）
-     * 刚参加完晋升面试，感觉如何？一路走来希望您有收获，有成长。
-     * 诚邀您对本次晋升评审安排进行评价，以指导后续晋升工作调优。所有评价反馈匿名使用，请您放心填写！感谢亲的支持！
-     * 点此评价：
-     * ```
-     *
-     * 晋升成功
-     *
-     * ```
-     * 却书是（花名五），您好：
-     * 恭喜你晋升啦！
-     * ```
-     */
     public void run() {
-
-        //分为这几个场景吧 1. 提名成功
-        Nominator nominator = createNominator();
-        Nominee nominee = createNominee();
-        TrainingId trainingId = TrainingId.next();
-        Training training = createTraining(trainingId);
-        ValidDate validDate = createValidDate(trainingId);
-        Ticket ticket = createTicket();
-
-        String template = buildTemplate();
-        VariableContext context = buildVariableContext(nominator, nominee, validDate, training, ticket);
-
-        MailTemplate mailTemplate = new MailTemplate(template, TemplateType.Nomination);
-        Notification notification = mailTemplate.compose(context);
-        System.out.println(notification);
+        setUp();
+        Nomination();
+        Meeting();
+        Research();
+        Promotion();
     }
 
-    /**
-     * 提名成功
-     * 看看二（花名），您好：
-     * 恭喜您被参与本次晋升！
-     */
-    private void nomiSuccess(){
-
+    private void setUp() {
+        nominator = createNominator();
+        nominee = createNominee();
+        meeting = createMeeting();
+        research = createResearch();
+        mailTemplateRepository = new SimpleMailTemplateRepository();
     }
 
-    /**
-     * 提名成功
-     * 看看二（花名），您好：
-     * 恭喜您被参与本次晋升！
-     */
-    private void openInterview() {
-
+    private void Nomination(){
+        MailTemplate mailTemplate = mailTemplateRepository.retrieveMailTemplate(TemplateType.Nomination);
+        VariableContext context = buildNominationContext(nominator, nominee);
+        Notification notification = mailTemplate.render(context);
+        log.info("{}", notification);
     }
 
-    private Ticket createTicket() {
-        return new Ticket(TicketId.next(), TrainingId.next());
+    private void Meeting() {
+        MailTemplate mailTemplate = mailTemplateRepository.retrieveMailTemplate(TemplateType.Meeting);
+        VariableContext context = buildMeetingContext(nominator, nominee);
+        Notification notification = mailTemplate.render(context);
+        log.info("{}", notification);
     }
 
-    private Training createTraining(TrainingId trainingId) {
-        CourseId courseId = CourseId.next();
-        LocalDateTime beginTime = LocalDateTime.of(2020, 1, 8, 9, 0);
-        LocalDateTime endTime = LocalDateTime.of(2020, 1, 9, 17, 0);
-        String place = "London Room";
-        return new Training(trainingId, "ddd", "ddd training", beginTime, endTime, place, courseId);
+    private void Research(){
+        MailTemplate mailTemplate = mailTemplateRepository.retrieveMailTemplate(TemplateType.Research);
+        VariableContext context = buildResearchContext(nominator, nominee);
+        Notification notification = mailTemplate.render(context);
+        log.info("{}", notification);
     }
 
-    private ValidDate createValidDate(TrainingId trainingId) {
-        LocalDateTime poDeadline = LocalDateTime.of(2019, 12, 20, 0, 0);
-        return new ValidDate(trainingId, poDeadline, ValidDateType.PODeadline);
+    private void Promotion() {
+        MailTemplate mailTemplate = mailTemplateRepository.retrieveMailTemplate(TemplateType.Promotion);
+        VariableContext context = buildPromotionContext(nominator, nominee);
+        Notification notification = mailTemplate.render(context);
+        log.info("{}", notification);
     }
+
+    private VariableContext buildNominationContext(Nominator nominator, Nominee nominee) {
+        return new VariableContext()
+                .put(VariableContext.Names.NOMINATOR, nominator)
+                .put(VariableContext.Names.NOMINEE, nominee);
+    }
+
+    private VariableContext buildMeetingContext(Nominator nominator, Nominee nominee) {
+        return new VariableContext()
+                .put(VariableContext.Names.NOMINATOR, nominator)
+                .put(VariableContext.Names.NOMINEE, nominee)
+                .put(VariableContext.Names.MEETING, meeting);
+    }
+
+    private VariableContext buildResearchContext(Nominator nominator, Nominee nominee) {
+        return new VariableContext()
+                .put(VariableContext.Names.NOMINATOR, nominator)
+                .put(VariableContext.Names.NOMINEE, nominee)
+                .put(VariableContext.Names.RESEARCH, research);
+    }
+
+    private VariableContext buildPromotionContext(Nominator nominator, Nominee nominee) {
+        return new VariableContext()
+                .put(VariableContext.Names.NOMINATOR, nominator)
+                .put(VariableContext.Names.NOMINEE, nominee);
+    }
+
 
     private Nominee createNominee() {
-        return new Nominee("201001010011", "zhangyi", "zhangyi@eas.com");
+        return new Nominee("E111", "张三", "zhangsan@ice.com");
     }
 
     private Nominator createNominator() {
-        return new Nominator("200901010010", "bruce", "bruce@eas.com", TrainingRole.Coordinator);
+        return new Nominator("E222", "李四", "lisi@ice.com");
     }
 
-    private VariableContext buildVariableContext(Nominator nominator, Nominee nominee, ValidDate validDate, Training training, Ticket ticket) {
-        return new VariableContext()
-                .put(VariableNames.TICKET, ticket)
-                .put(VariableNames.TRAINING, training)
-                .put(VariableNames.VALID_DATE, validDate)
-                .put(VariableNames.NOMINATOR, nominator)
-                .put(VariableNames.NOMINEE, nominee);
+    private Meeting createMeeting() {
+        LocalDateTime beginTime = LocalDateTime.of(2021, 12, 1, 9, 0);
+        LocalDateTime endTime = LocalDateTime.of(2020, 12, 1, 17, 0);
+        String place = "上海";
+        return new Meeting("晋升会议", "晋升会议请带好材料准时参加", beginTime, endTime, place);
     }
 
-    private String buildTemplate() {
-        return "Hi $nomineeName$:\n" +
-                "We are glad to notify that you are nominated by $nominatorName$ to attend the training. Please click the link as below to confirm this nomination before the deadline $deadline$:\n" +
-                "$url$\n" +
-                "\n" +
-                "Here is the basic information of training:\n" +
-                "Title: $title$\n" +
-                "Description: $description$\n" +
-                "Begin time: $beginTime$\n" +
-                "End time: $endTime$\n" +
-                "Place: $place$\n" +
-                "\n" +
-                "Thanks! We're excited to have you in the training.\n" +
-                "EAS Team";
+    private Research createResearch() {
+        return new Research(ResearchId.from("r123"), nominee.getEmployeeId());
     }
-
 }
 

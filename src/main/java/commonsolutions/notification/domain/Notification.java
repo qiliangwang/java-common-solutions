@@ -1,5 +1,7 @@
 package commonsolutions.notification.domain;
 
+import com.alibaba.fastjson.JSON;
+
 public class Notification {
     private String from;
     private String to;
@@ -31,11 +33,11 @@ public class Notification {
 
     @Override
     public String toString() {
-        return "Notification{" +
-                "from='" + from + '\'' +
-                ", to='" + to + '\'' +
-                ", subject='" + subject + '\'' +
-                ", body='" + body + '\'' +
-                '}';
+        return "Notification:\n" +
+                "{\n" +
+                "from='" + from +",\n"+
+                "to='" + to +",\n" +
+                "subject='" + subject + ",\n" +
+                "body='" + body + "}";
     }
 }

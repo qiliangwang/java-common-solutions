@@ -1,21 +1,21 @@
-package commonsolutions.notification.service;
+package commonsolutions.notification.entity;
 
 import java.util.Objects;
 import java.util.UUID;
 
-public class TicketId {
+public class ResearchId {
     private String value;
 
-    private TicketId(String value) {
+    private ResearchId(String value) {
         this.value = value;
     }
 
-    public static TicketId next() {
-        return new TicketId(UUID.randomUUID().toString());
+    public static ResearchId next() {
+        return new ResearchId(UUID.randomUUID().toString());
     }
 
-    public static TicketId from(String value) {
-        return new TicketId(value);
+    public static ResearchId from(String value) {
+        return new ResearchId(value);
     }
 
     public String value() {
@@ -26,7 +26,7 @@ public class TicketId {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TicketId ticketId = (TicketId) o;
+        ResearchId ticketId = (ResearchId) o;
         return value.equals(ticketId.value);
     }
 
