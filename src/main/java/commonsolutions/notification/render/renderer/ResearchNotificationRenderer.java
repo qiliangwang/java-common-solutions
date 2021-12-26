@@ -1,17 +1,20 @@
-package commonsolutions.notification.composer.renderer;
+package commonsolutions.notification.render.renderer;
 
-import commonsolutions.notification.composer.TemplateVariable;
-import commonsolutions.notification.composer.VariableContext;
-import commonsolutions.notification.entity.*;
+import commonsolutions.notification.render.TemplateVariable;
+import commonsolutions.notification.render.VariableContext;
+import commonsolutions.notification.entity.Nominator;
+import commonsolutions.notification.entity.Nominee;
+import commonsolutions.notification.entity.Research;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NominationNotificationRenderer extends NotificationRenderer {
+public class ResearchNotificationRenderer extends NotificationRenderer {
     private Nominator nominator;
     private Nominee nominee;
+    private Research research;
 
-    public NominationNotificationRenderer(String template, VariableContext context) {
+    public ResearchNotificationRenderer(String template, VariableContext context) {
         super(template, context);
     }
 
@@ -19,6 +22,7 @@ public class NominationNotificationRenderer extends NotificationRenderer {
     protected void setup(VariableContext context) {
         nominator = context.get(VariableContext.Names.NOMINATOR);
         nominee = context.get(VariableContext.Names.NOMINEE);
+        research = context.get(VariableContext.Names.RESEARCH);
     }
 
     @Override
@@ -33,7 +37,7 @@ public class NominationNotificationRenderer extends NotificationRenderer {
 
     @Override
     protected String renderSubject() {
-        return "Nomination Notification";
+        return "Research Nomination Notification";
     }
 
     @Override
@@ -41,6 +45,7 @@ public class NominationNotificationRenderer extends NotificationRenderer {
         List<TemplateVariable> variables = new ArrayList<>();
         variables.add(TemplateVariable.with("nomineeName", nominee.getName()));
         variables.add(TemplateVariable.with("nominatorName", nominator.getName()));
+        variables.add(TemplateVariable.with("url", research.url()));
         return variables;
     }
 }

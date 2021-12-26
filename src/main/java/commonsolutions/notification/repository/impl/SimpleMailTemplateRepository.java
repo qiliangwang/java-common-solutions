@@ -1,7 +1,7 @@
 package commonsolutions.notification.repository.impl;
 
-import commonsolutions.notification.composer.MailTemplate;
-import commonsolutions.notification.composer.TemplateType;
+import commonsolutions.notification.render.MailTemplate;
+import commonsolutions.notification.render.TemplateType;
 import commonsolutions.notification.exceptions.MailTemplateException;
 import commonsolutions.notification.repository.MailTemplateRepository;
 

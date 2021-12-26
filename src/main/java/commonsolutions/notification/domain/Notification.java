@@ -1,7 +1,8 @@
 package commonsolutions.notification.domain;
 
-import com.alibaba.fastjson.JSON;
+import lombok.Getter;
 
+@Getter
 public class Notification {
     private String from;
     private String to;
@@ -13,22 +14,6 @@ public class Notification {
         this.to = to;
         this.subject = subject;
         this.body = body;
-    }
-
-    public String from() {
-        return from;
-    }
-
-    public String to() {
-        return to;
-    }
-
-    public String subject() {
-        return subject;
-    }
-
-    public String body() {
-        return body;
     }
 
     @Override

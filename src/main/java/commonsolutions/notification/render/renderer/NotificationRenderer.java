@@ -1,7 +1,7 @@
-package commonsolutions.notification.composer.renderer;
+package commonsolutions.notification.render.renderer;
 
-import commonsolutions.notification.composer.TemplateVariable;
-import commonsolutions.notification.composer.VariableContext;
+import commonsolutions.notification.render.TemplateVariable;
+import commonsolutions.notification.render.VariableContext;
 import commonsolutions.notification.domain.Notification;
 import org.stringtemplate.v4.ST;
 

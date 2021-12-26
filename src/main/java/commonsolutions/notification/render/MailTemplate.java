@@ -1,7 +1,7 @@
-package commonsolutions.notification.composer;
+package commonsolutions.notification.render;
 
 
-import commonsolutions.notification.composer.renderer.NotificationRenderer;
+import commonsolutions.notification.render.renderer.NotificationRenderer;
 import commonsolutions.notification.domain.Notification;
 
 public class MailTemplate {

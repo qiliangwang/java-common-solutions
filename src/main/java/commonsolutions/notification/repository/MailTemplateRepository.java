@@ -1,7 +1,7 @@
 package commonsolutions.notification.repository;
 
-import commonsolutions.notification.composer.MailTemplate;
-import commonsolutions.notification.composer.TemplateType;
+import commonsolutions.notification.render.MailTemplate;
+import commonsolutions.notification.render.TemplateType;
 
 import java.util.Optional;
 

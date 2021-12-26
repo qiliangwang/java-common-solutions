@@ -1,21 +1,18 @@
-package commonsolutions.notification.composer.renderer;
+package commonsolutions.notification.render.renderer;
 
-import commonsolutions.notification.composer.TemplateVariable;
-import commonsolutions.notification.composer.VariableContext;
-import commonsolutions.notification.entity.Meeting;
-import commonsolutions.notification.entity.Nominator;
-import commonsolutions.notification.entity.Nominee;
-import commonsolutions.notification.entity.Research;
+import commonsolutions.notification.render.TemplateVariable;
+import commonsolutions.notification.render.VariableContext;
+import commonsolutions.notification.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResearchNotificationRenderer extends NotificationRenderer {
+public class MeetingNotificationRenderer extends NotificationRenderer {
     private Nominator nominator;
     private Nominee nominee;
-    private Research research;
+    private Meeting meeting;
 
-    public ResearchNotificationRenderer(String template, VariableContext context) {
+    public MeetingNotificationRenderer(String template, VariableContext context) {
         super(template, context);
     }
 
@@ -23,7 +20,7 @@ public class ResearchNotificationRenderer extends NotificationRenderer {
     protected void setup(VariableContext context) {
         nominator = context.get(VariableContext.Names.NOMINATOR);
         nominee = context.get(VariableContext.Names.NOMINEE);
-        research = context.get(VariableContext.Names.RESEARCH);
+        meeting = context.get(VariableContext.Names.MEETING);
     }
 
     @Override
@@ -38,7 +35,7 @@ public class ResearchNotificationRenderer extends NotificationRenderer {
 
     @Override
     protected String renderSubject() {
-        return "Research Nomination Notification";
+        return "Ticket Nomination Notification";
     }
 
     @Override
@@ -46,7 +43,9 @@ public class ResearchNotificationRenderer extends NotificationRenderer {
         List<TemplateVariable> variables = new ArrayList<>();
         variables.add(TemplateVariable.with("nomineeName", nominee.getName()));
         variables.add(TemplateVariable.with("nominatorName", nominator.getName()));
-        variables.add(TemplateVariable.with("url", research.url()));
+        variables.add(TemplateVariable.with("beginTime", meeting.getBeginTime().toString()));
+        variables.add(TemplateVariable.with("endTime", meeting.getEndTime().toString()));
+        variables.add(TemplateVariable.with("place", meeting.getPlace()));
         return variables;
     }
 }

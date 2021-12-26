@@ -1,9 +1,9 @@
-package commonsolutions.notification.composer;
+package commonsolutions.notification.render;
 
-import commonsolutions.notification.composer.renderer.MeetingNotificationRenderer;
-import commonsolutions.notification.composer.renderer.NominationNotificationRenderer;
-import commonsolutions.notification.composer.renderer.NotificationRenderer;
-import commonsolutions.notification.composer.renderer.ResearchNotificationRenderer;
+import commonsolutions.notification.render.renderer.MeetingNotificationRenderer;
+import commonsolutions.notification.render.renderer.NominationNotificationRenderer;
+import commonsolutions.notification.render.renderer.NotificationRenderer;
+import commonsolutions.notification.render.renderer.ResearchNotificationRenderer;
 
 public enum TemplateType {
 

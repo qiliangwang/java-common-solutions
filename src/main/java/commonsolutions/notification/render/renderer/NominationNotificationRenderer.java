@@ -1,18 +1,17 @@
-package commonsolutions.notification.composer.renderer;
+package commonsolutions.notification.render.renderer;
 
-import commonsolutions.notification.composer.TemplateVariable;
-import commonsolutions.notification.composer.VariableContext;
+import commonsolutions.notification.render.TemplateVariable;
+import commonsolutions.notification.render.VariableContext;
 import commonsolutions.notification.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MeetingNotificationRenderer extends NotificationRenderer {
+public class NominationNotificationRenderer extends NotificationRenderer {
     private Nominator nominator;
     private Nominee nominee;
-    private Meeting meeting;
 
-    public MeetingNotificationRenderer(String template, VariableContext context) {
+    public NominationNotificationRenderer(String template, VariableContext context) {
         super(template, context);
     }
 
@@ -20,7 +19,6 @@ public class MeetingNotificationRenderer extends NotificationRenderer {
     protected void setup(VariableContext context) {
         nominator = context.get(VariableContext.Names.NOMINATOR);
         nominee = context.get(VariableContext.Names.NOMINEE);
-        meeting = context.get(VariableContext.Names.MEETING);
     }
 
     @Override
@@ -35,7 +33,7 @@ public class MeetingNotificationRenderer extends NotificationRenderer {
 
     @Override
     protected String renderSubject() {
-        return "Ticket Nomination Notification";
+        return "Nomination Notification";
     }
 
     @Override
@@ -43,9 +41,6 @@ public class MeetingNotificationRenderer extends NotificationRenderer {
         List<TemplateVariable> variables = new ArrayList<>();
         variables.add(TemplateVariable.with("nomineeName", nominee.getName()));
         variables.add(TemplateVariable.with("nominatorName", nominator.getName()));
-        variables.add(TemplateVariable.with("beginTime", meeting.getBeginTime().toString()));
-        variables.add(TemplateVariable.with("endTime", meeting.getEndTime().toString()));
-        variables.add(TemplateVariable.with("place", meeting.getPlace()));
         return variables;
     }
 }

@@ -1,8 +1,8 @@
 package commonsolutions.notification;
 
-import commonsolutions.notification.composer.MailTemplate;
-import commonsolutions.notification.composer.TemplateType;
-import commonsolutions.notification.composer.VariableContext;
+import commonsolutions.notification.render.MailTemplate;
+import commonsolutions.notification.render.TemplateType;
+import commonsolutions.notification.render.VariableContext;
 import commonsolutions.notification.domain.Notification;
 import commonsolutions.notification.repository.MailTemplateRepository;
 import commonsolutions.notification.repository.impl.SimpleMailTemplateRepository;

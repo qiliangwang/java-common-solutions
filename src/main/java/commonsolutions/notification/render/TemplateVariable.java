@@ -1,4 +1,4 @@
-package commonsolutions.notification.composer;
+package commonsolutions.notification.render;
 
 public class TemplateVariable {
     private final String name;

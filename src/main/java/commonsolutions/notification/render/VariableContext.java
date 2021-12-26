@@ -1,4 +1,4 @@
-package commonsolutions.notification.composer;
+package commonsolutions.notification.render;
 
 import java.util.HashMap;
 import java.util.Map;
