@@ -1,5 +1,0 @@
-package commonsolutions.notification.entity;
-
-public interface Identity<T> {
-    T value();
-}
