@@ -17,7 +17,7 @@ public class PageDTO {
     /**
      * 分页初始条数
      */
-    private Integer pageLimit;
+    private Integer pageStart;
 
     public void checkAndSetup() {
         if (Objects.isNull(pageNum) || pageNum <= 0) {
@@ -26,6 +26,6 @@ public class PageDTO {
         if (Objects.isNull(pageSize) || pageSize <= 0) {
             pageSize = 10;
         }
-        pageLimit = (pageNum - 1) * pageSize;
+        pageStart = (pageNum - 1) * pageSize;
     }
 }

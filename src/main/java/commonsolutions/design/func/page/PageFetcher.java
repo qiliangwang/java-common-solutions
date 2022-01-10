@@ -20,7 +20,6 @@ public class PageFetcher<C extends PageDTO, T> extends AbstractPageFetcher {
         return new PageFetcher<>(condition, listFunc, countFunc);
     }
 
-
     @Override
     @SuppressWarnings("all")
     protected void setupRecordsAndTotal(Page page) {

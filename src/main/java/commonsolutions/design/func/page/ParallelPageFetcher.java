@@ -33,7 +33,9 @@ public class ParallelPageFetcher<C extends PageDTO, T> extends AbstractPageFetch
     }
 
     public static void main(String[] args) {
-        ParallelPageFetcher<PageDTO, Integer> pageFetcher = ParallelPageFetcher.of(new PageDTO(), ParallelPageFetcher::listFunc, ParallelPageFetcher::countFunc);
+        ParallelPageFetcher<PageDTO, Integer> pageFetcher = ParallelPageFetcher.of(new PageDTO(),
+                ParallelPageFetcher::listFunc,
+                ParallelPageFetcher::countFunc);
         pageFetcher.page();
     }
 

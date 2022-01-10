@@ -33,7 +33,7 @@ public class Solution3 {
             if (right < s.length() && !set.contains(s.charAt(right))) {
                 set.add(s.charAt(right));
                 right ++;
-                res = Math.max(res, right - left);
+                res = Math.max(res, right - left); // or set.size()
             } else {
                 set.remove(s.charAt(left));
                 left ++;
